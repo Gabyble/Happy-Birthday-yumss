@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Bebe! ❤️</title>
+    <!-- Tailwind CSS for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Smooth scrolling for the page */
+        html { scroll-behavior: smooth; }
+        /* Perspective for the 3D card flip effect */
+        .perspective { perspective: 1000px; }
+        .flip-card-inner {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .flipped { transform: rotateY(180deg); }
+        .backface-hidden { backface-visibility: hidden; }
+        .rotate-y-180 { transform: rotateY(180deg); }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800 font-sans antialiased">
+
+    <!-- 0. BIRTHDAY PASSWORD GATE -->
+    <div id="password-gate" class="fixed inset-0 bg-stone-950 z-50 flex flex-col justify-center items-center px-6 transition-all duration-1000 ease-in-out">
+        <div class="max-w-md w-full text-center space-y-6">
+            <!-- Decorative Icon -->
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-rose-950 text-rose-400 border border-rose-800 text-2xl animate-pulse">
+                🔐
+            </div>
+            
+            <div class="space-y-2">
+                <h2 class="text-2xl font-bold tracking-tight text-stone-100">A Secret Corner of the Internet</h2>
+                <p class="text-sm text-stone-400">Enter the secret passcode to unlock your birthday surprise, bebe. ❤️</p>
+            </div>
+
+            <!-- Input Form -->
+            <div class="space-y-3">
+                <input type="password" id="secret-code" placeholder="Enter password..." 
+                    class="w-full px-5 py-3 bg-stone-900 border border-stone-800 rounded-xl text-stone-100 placeholder-stone-500 focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500 text-center tracking-widest font-mono transition">
+                
+                <button onclick="checkPassword()" 
+                    class="w-full bg-rose-600 hover:bg-rose-500 text-white font-medium py-3 rounded-xl transition shadow-md active:scale-[0.98]">
+                    Unlock Surprise ✨
+                </button>
+                
+                <!-- Error Message Placeholder -->
+                <p id="error-msg" class="text-xs text-rose-500 font-medium h-4 opacity-0 transition-opacity duration-300">
+                    Incorrect passcode, try again pretty! 🤭
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 1. HERO SECTION -->
+    <section class="min-h-screen flex flex-col justify-center items-center px-4 text-center bg-gradient-to-b from-rose-50 to-stone-50">
+        <h1 class="text-5xl md:text-7xl font-bold tracking-tight text-rose-600 mb-4 animate-fade-in">
+            Happy Birthday, Yumi! ✨
+        </h1>
+        <p class="text-lg text-stone-600 max-w-md mb-6">
+            I built a little thing sayo sa internet to celebrate your birthday, bebe! 🎉
+        </p>
+
+        <!-- MILESTONE COUNTER CARD -->
+        <div class="mb-10 p-4 bg-white/60 backdrop-blur-sm border border-rose-100 rounded-2xl shadow-sm max-w-xs w-full transition transform hover:scale-[1.02]">
+            <span id="days-counter" class="text-4xl font-extrabold text-rose-500 font-mono block">0</span>
+            <span class="text-xs uppercase tracking-wider text-stone-500 font-medium mt-1 block">Beautiful Days Together ❤️</span>
+        </div>
+
+        <a href="#balloon-section" class="bg-rose-500 hover:bg-rose-600 text-white px-6 py-3 rounded-full font-medium shadow-md transition duration-300">
+            Explore Our Moments
+        </a>
+    </section>
+
+    <!-- 1.5 BALLOON POP WISH SECTION -->
+    <section id="balloon-section" class="py-16 px-6 max-w-4xl mx-auto border-t border-stone-200 text-center">
+        <div class="mb-10">
+            <span class="text-sm uppercase tracking-widest text-rose-500 font-semibold font-mono">Interactive Birthday Fun</span>
+            <h2 class="text-3xl font-bold mt-2 text-stone-800">Pop the Balloons for a Surprise! 🎈</h2>
+            <p class="text-stone-600 mt-2">Click on each balloon to pop it and read your special birthday wishes, bebe!</p>
+        </div>
+
+        <!-- Container for Balloons and Wishes -->
+        <div class="relative min-h-[320px] flex flex-col justify-center items-center bg-white border border-stone-100 rounded-3xl p-8 shadow-sm overflow-hidden">
+            
+            <!-- The Balloon Row -->
+            <div id="balloon-container" class="flex flex-wrap justify-center items-center gap-10 md:gap-16 transition-all duration-500">
+                
+                <!-- Balloon 1 -->
+                <div onclick="popBalloon(this, 'wish-1')" class="group relative flex flex-col items-center cursor-pointer transform hover:scale-110 active:scale-95 transition duration-200">
+                    <div class="w-16 h-20 bg-rose-400 rounded-full relative shadow-md before:absolute before:w-3 before:h-4 before:bg-rose-500 before:bottom-[-4px] before:left-[26px] before:rounded-b-sm"></div>
+                    <div class="w-0.5 h-12 bg-stone-300"></div>
+                    <span class="absolute text-xl font-bold text-white top-6 select-none pointer-events-none group-hover:animate-bounce">1</span>
+                </div>
+
+                <!-- Balloon 2 -->
+                <div onclick="popBalloon(this, 'wish-2')" class="group relative flex flex-col items-center cursor-pointer transform hover:scale-110 active:scale-95 transition duration-200">
+                    <div class="w-16 h-20 bg-pink-400 rounded-full relative shadow-md before:absolute before:w-3 before:h-4 before:bg-pink-500 before:bottom-[-4px] before:left-[26px] before:rounded-b-sm"></div>
+                    <div class="w-0.5 h-12 bg-stone-300"></div>
+                    <span class="absolute text-xl font-bold text-white top-6 select-none pointer-events-none group-hover:animate-bounce">2</span>
+                </div>
+
+                <!-- Balloon 3 -->
+                <div onclick="popBalloon(this, 'wish-3')" class="group relative flex flex-col items-center cursor-pointer transform hover:scale-110 active:scale-95 transition duration-200">
+                    <div class="w-16 h-20 bg-amber-400 rounded-full relative shadow-md before:absolute before:w-3 before:h-4 before:bg-amber-500 before:bottom-[-4px] before:left-[26px] before:rounded-b-sm"></div>
+                    <div class="w-0.5 h-12 bg-stone-300"></div>
+                    <span class="absolute text-xl font-bold text-white top-6 select-none pointer-events-none group-hover:animate-bounce">3</span>
+                </div>
+
+                <!-- Balloon 4 -->
+                <div onclick="popBalloon(this, 'wish-4')" class="group relative flex flex-col items-center cursor-pointer transform hover:scale-110 active:scale-95 transition duration-200">
+                    <div class="w-16 h-20 bg-red-400 rounded-full relative shadow-md before:absolute before:w-3 before:h-4 before:bg-red-500 before:bottom-[-4px] before:left-[26px] before:rounded-b-sm"></div>
+                    <div class="w-0.5 h-12 bg-stone-300"></div>
+                    <span class="absolute text-xl font-bold text-white top-6 select-none pointer-events-none group-hover:animate-bounce">4</span>
+                </div>
+
+            </div>
+
+            <!-- Wishes Display Box -->
+            <div id="wishes-box" class="mt-4 space-y-3 text-center max-w-md">
+                <p id="wish-1" class="hidden opacity-0 text-stone-700 font-medium bg-rose-50 border border-rose-100 py-2 px-4 rounded-xl transition-all duration-500">✨ I wish you endless happiness and success in everything you do po!</p>
+                <p id="wish-2" class="hidden opacity-0 text-stone-700 font-medium bg-pink-50 border border-pink-100 py-2 px-4 rounded-xl transition-all duration-500">✨ May your day be filled with lots of laughters and tons of lablab greetings from everyone 🎂</p>
+                <p id="wish-3" class="hidden opacity-0 text-stone-700 font-medium bg-amber-50 border border-amber-100 py-2 px-4 rounded-xl transition-all duration-500">✨ I will always make you feel safe, loved, and valued everyday po bebe. 🥰</p>
+                <p id="wish-4" class="hidden opacity-0 text-stone-700 font-medium bg-red-50 border border-red-100 py-2 px-4 rounded-xl transition-all duration-500">✨ Wishing you good health always so we can travel and eat lots of delicious food! "tas amoy kili" 🚗</p>
+            </div>
+
+            <!-- Success Reveal Button (Hidden until all balloons are popped) -->
+            <div id="all-popped-action" class="hidden opacity-0 mt-6 transition-all duration-700 transform translate-y-2">
+                <p class="text-rose-600 font-semibold mb-3 text-lg font-mono">All wishes unlocked! 🎉 ❤️</p>
+                <a href="#memories" class="inline-block bg-rose-500 hover:bg-rose-600 text-white font-medium px-6 py-2.5 rounded-full shadow-md transition duration-300 transform hover:scale-105">
+                    Continue to My Favorite Things ✨
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. INTERACTIVE GRID SECTION -->
+    <section id="memories" class="py-20 px-6 max-w-5xl mx-auto border-t border-stone-200">
+        <h2 class="text-3xl font-bold text-center mb-12">Some of My Favorite Things About You</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- CARD 1 -->
+            <div class="w-full h-64 perspective cursor-pointer" onclick="flipCard(this)">
+                <div class="flip-card-inner relative w-full h-full shadow-sm rounded-2xl border border-stone-200">
+                    <!-- Front of Card -->
+                    <div class="backface-hidden absolute inset-0 bg-white flex flex-col justify-center items-center p-6 rounded-2xl">
+                        <span class="text-4xl mb-3">🧠</span>
+                        <h3 class="font-semibold text-lg text-stone-700">Your Smile</h3>
+                        <p class="text-xs text-stone-400 mt-2">Click to flip</p>
+                    </div>
+                    <!-- Back of Card -->
+                    <div class="backface-hidden rotate-y-180 absolute inset-0 bg-rose-500 text-white flex flex-col justify-center items-center p-6 rounded-2xl text-center">
+                        <p class="font-medium text-base">I love how your smile can brighten my day even on the gloomiest of days.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 2 -->
+            <div class="w-full h-64 perspective cursor-pointer" onclick="flipCard(this)">
+                <div class="flip-card-inner relative w-full h-full shadow-sm rounded-2xl border border-stone-200">
+                    <!-- Front of Card -->
+                    <div class="backface-hidden absolute inset-0 bg-white flex flex-col justify-center items-center p-6 rounded-2xl">
+                        <span class="text-4xl mb-3">💫</span>
+                        <h3 class="font-semibold text-lg text-stone-700">Your Kiss</h3>
+                        <p class="text-xs text-stone-400 mt-2">Click to flip</p>
+                    </div>
+                    <!-- Back of Card -->
+                    <div class="backface-hidden rotate-y-180 absolute inset-0 bg-rose-500 text-white flex flex-col justify-center items-center p-6 rounded-2xl text-center">
+                        <p class="font-medium text-base">Your kiss make me feel like the luckiest person in the world.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 3 -->
+            <div class="w-full h-64 perspective cursor-pointer" onclick="flipCard(this)">
+                <div class="flip-card-inner relative w-full h-full shadow-sm rounded-2xl border border-stone-200">
+                    <!-- Front of Card -->
+                    <div class="backface-hidden absolute inset-0 bg-white flex flex-col justify-center items-center p-6 rounded-2xl">
+                        <span class="text-4xl mb-3">💫</span>
+                        <h3 class="font-semibold text-lg text-stone-700">Your Kili</h3>
+                        <p class="text-xs text-stone-400 mt-2">Click to flip</p>
+                    </div>
+                    <!-- Back of Card -->
+                    <div class="backface-hidden rotate-y-180 absolute inset-0 bg-rose-500 text-white flex flex-col justify-center items-center p-6 rounded-2xl text-center">
+                        <p class="font-medium text-base">Your kili is so bango and so amazing as in po hehe.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COMPLIMENT GENERATOR LAYOUT DISPLAY -->
+        <div class="mt-16 max-w-md mx-auto text-center border border-rose-100 rounded-3xl bg-white p-6 shadow-sm">
+            <span class="text-xs font-mono uppercase tracking-widest text-rose-500 font-bold">Virtual Reminders Box 💌</span>
+            <div class="min-h-[80px] flex items-center justify-center py-4">
+                <p id="compliment-display" class="text-stone-700 font-medium text-base leading-relaxed transition-all duration-300">
+                    Click the button below to open a little note from me, bebe! 👇
+                </p>
+            </div>
+            <button onclick="generateCompliment()" class="w-full bg-rose-50 border border-rose-200 hover:bg-rose-100 text-rose-600 font-semibold py-3 px-6 rounded-xl transition duration-200 active:scale-98">
+                Tap For A Reminder ✨
+            </button>
+        </div>
+    </section>
+
+    <!-- 2.5 TYPEWRITER LETTER SECTION -->
+    <section id="birthday-letter" class="py-20 px-6 max-w-xl mx-auto border-t border-stone-200">
+        <div class="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-stone-100 font-serif space-y-4 relative overflow-hidden">
+            <!-- Decorative corner heart -->
+            <div class="absolute top-4 right-4 text-rose-200 text-xl">❤️</div>
+            
+            <!-- This container will hold our dynamically typed message -->
+            <div id="typewriter-text" class="text-stone-700 leading-relaxed text-base md:text-lg whitespace-pre-wrap min-h-[200px]"></div>
+            
+            <!-- Blinking typing cursor animation -->
+            <span id="typing-cursor" class="inline-block w-2 h-5 bg-rose-500 animate-pulse hidden"></span>
+        </div>
+    </section>
+
+    <!-- 3. DATE INVITATION SECTION (FIXED PLAN) -->
+    <section id="invitation" class="py-20 px-6 max-w-2xl mx-auto border-t border-stone-200">
+        <div class="text-center mb-12">
+            <span class="text-sm uppercase tracking-widest text-rose-500 font-semibold font-mono">The Birthday Plan of Gaby</span>
+            <h2 class="text-4xl font-bold mt-2 text-stone-800">Get ready po bebe!!!</h2>
+            <p class="text-stone-600 mt-2">I have planned everything out for us. You just have to show up my pretty bebe.</p>
+            
+            <!-- The Reveal Button -->
+            <button id="reveal-btn" onclick="revealItinerary()" class="mt-6 bg-rose-500 hover:bg-rose-600 text-white px-8 py-3 rounded-full font-medium shadow-md transition duration-300 transform hover:scale-105">
+                See Your Birthday Date Plans ✨
+            </button>
+        </div>
+
+        <!-- Hidden Itinerary Timeline -->
+        <div id="itinerary-timeline" class="hidden opacity-0 transition-opacity duration-1000 space-y-12 relative before:absolute before:inset-0 before:left-4 before:w-0.5 before:bg-stone-200">
+            
+            <!-- Stop 1: Afternoon/Pick up -->
+            <div class="relative pl-12">
+                <div class="absolute left-2.5 top-1.5 w-3.5 h-3.5 rounded-full bg-rose-400 border-4 border-stone-50"></div>
+                <span class="text-xs font-mono text-rose-500 font-bold uppercase">5:00 PM — The Pickup</span>
+                <h3 class="text-xl font-bold text-stone-800 mt-1">Starting our Afternoon together</h3>
+                <p class="text-stone-600 mt-2">I'll be picking you up at Brgy. Balayang, Victoria Tarlac. Dress comfortably lang po, bring your favorite smile, and leave the rest to me na bebe.</p>
+            </div>
+
+            <!-- Stop 2: Food/Cafe -->
+            <div class="relative pl-12">
+                <div class="absolute left-2.5 top-1.5 w-3.5 h-3.5 rounded-full bg-rose-400 border-4 border-stone-50"></div>
+                <span class="text-xs font-mono text-rose-500 font-bold uppercase">6:30 PM — Dinner and Coffee</span>
+                <h3 class="text-xl font-bold text-stone-800 mt-1">First Stop: Cozy Cafe/Restaurant Date ☕</h3>
+                <p class="text-stone-600 mt-2">Starting the Evening slow with some good foods, warm/cold coffee, and pastries at a quiet spot.</p>
+            </div>
+
+            <!-- Stop 3: Main Activity -->
+            <div class="relative pl-12">
+                <div class="absolute left-2.5 top-1.5 w-3.5 h-3.5 rounded-full bg-rose-400 border-4 border-stone-50"></div>
+                <span class="text-xs font-mono text-rose-500 font-bold uppercase">8:00 PM  — The Driver</span>
+                <h3 class="text-xl font-bold text-stone-800 mt-1">Driving and Fun</h3>
+                <p class="text-stone-600 mt-2">We will be driving around and have a great time together!</p>
+            </div>
+
+            <!-- Stop 4: Dinner/Sunset -->
+            <div class="relative pl-12">
+                <div class="absolute left-2.5 top-1.5 w-3.5 h-3.5 rounded-full bg-rose-400 border-4 border-stone-50"></div>
+                <span class="text-xs font-mono text-rose-500 font-bold uppercase">9:30 PM — Cresendo spot</span>
+                <h3 class="text-xl font-bold text-stone-800 mt-1">Hangout and Eating Again</h3>
+                <p class="text-stone-600 mt-2">We will be ending the night with a hangout for the two of us to unwind, talk, and celebrate you turning a year older.</p>
+            </div>
+            
+            <!-- Stop 5: Going Home -->
+            <div class="relative pl-12 pb-8">
+                <div class="absolute left-2.5 top-1.5 w-3.5 h-3.5 rounded-full bg-rose-400 border-4 border-stone-50"></div>
+                <span class="text-xs font-mono text-rose-500 font-bold uppercase">12:00 AM — The Bring Back</span>
+                <h3 class="text-xl font-bold text-stone-800 mt-1">Going home after a wonderful night</h3>
+                <p class="text-stone-600 mt-2">We will be going home after a wonderful night together po bebe!!</p>
+            </div>
+
+            <!-- 4. RATE THE DATE SECTION -->
+            <div class="mt-16 pt-12 border-t border-stone-200 max-w-md mx-auto text-center">
+                <div id="rating-form-card" class="bg-white p-6 rounded-2xl border border-stone-100 shadow-sm space-y-4">
+                    <h3 class="text-xl font-bold text-stone-800">Rate the Birthday Plan! ⭐</h3>
+                    <p class="text-sm text-stone-500">Scale of 1-5, how excited are you for our birthday date night out, bebe?</p>
+                    
+                    <!-- Star Row -->
+                    <div class="flex justify-center items-center gap-2 text-3xl">
+                        <button onclick="setRating(1)" class="star-btn text-stone-200 hover:scale-110 transition duration-150 focus:outline-none">★</button>
+                        <button onclick="setRating(2)" class="star-btn text-stone-200 hover:scale-110 transition duration-150 focus:outline-none">★</button>
+                        <button onclick="setRating(3)" class="star-btn text-stone-200 hover:scale-110 transition duration-150 focus:outline-none">★</button>
+                        <button onclick="setRating(4)" class="star-btn text-stone-200 hover:scale-110 transition duration-150 focus:outline-none">★</button>
+                        <button onclick="setRating(5)" class="star-btn text-stone-200 hover:scale-110 transition duration-150 focus:outline-none">★</button>
+                    </div>
+
+                    <!-- Small Comment Box -->
+                    <div class="space-y-2">
+                        <textarea id="rating-comment" rows="2" placeholder="Leave a review or special request for Gaby..." 
+                            class="w-full text-sm p-3 bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:border-rose-400 text-stone-700 transition resize-none"></textarea>
+                    </div>
+
+                    <button onclick="submitDateRating()" 
+                        class="w-full bg-stone-900 hover:bg-stone-800 text-white font-medium text-sm py-2.5 rounded-xl transition shadow-sm active:scale-98">
+                        Submit My Score ✨
+                    </button>
+                </div>
+
+                <!-- Post-Submit Thank You Note -->
+                <div id="rating-success-message" class="hidden opacity-0 bg-rose-50 border border-rose-100 p-6 rounded-2xl text-center space-y-2 transition-all duration-700">
+                    <span class="text-3xl block">🥰 🎉</span>
+                    <h4 class="text-lg font-bold text-rose-600 font-mono">Rating Submitted Successfully!</h4>
+                    <p class="text-sm text-stone-600 leading-relaxed">Thank you for the review, my pretty supervisor! Your custom itinerary is officially locked in. Prepare to be spoiled! ❤️</p>
+                </div>
+            </div>
+            <!-- 5. ABSOLUTE BOTTOM SECRET EASTER EGG -->
+    <footer class="py-12 bg-stone-100 text-center border-t border-stone-200 overflow-hidden">
+        <p class="text-xs text-stone-400 font-mono tracking-wider">Made with ❤️ by Gaby | 2026</p>
+        
+        <!-- Interactive Trigger Text -->
+        <div class="mt-6">
+            <button onclick="revealSecretBottomMessage()" id="secret-trigger-btn"
+                class="inline-block text-xs text-stone-300 hover:text-rose-300 font-mono tracking-widest uppercase transition duration-300 cursor-pointer select-none focus:outline-none animate-pulse">
+                ••• [ tap for a final secret ] •••
+            </button>
+        </div>
+
+        <!-- Hidden Secret Container -->
+        <div id="bottom-secret-box" class="hidden opacity-0 max-w-sm mx-auto mt-4 px-6 transition-all duration-1000 transform translate-y-2">
+            <div class="p-5 bg-stone-900 border border-stone-800 rounded-2xl text-stone-300 font-serif text-sm leading-relaxed text-center shadow-lg relative">
+                <!-- Tiny glowing indicator -->
+                <span class="absolute -top-1.5 left-1/2 transform -translate-x-1/2 bg-rose-500 text-[10px] text-white font-mono uppercase px-2 py-0.5 rounded-full tracking-widest shadow-sm">P.S.</span>
+                
+                <!-- Change this text to whatever ultra-secret message you want! -->
+                <p class="italic text-stone-100">
+                    "Uyyy, nahanap mo to bebe hehe. Seryoso po, Kahit matapos napo itong birthday mo, celebrate pa rin kita araw-araw. So lablab po kita bebe ih, copy that? hehe ay bebe btw im sorry po pala these days I'm doing this po bebe and baka hindi po kasi ako makapagsalita sa call while doing this website po bebe huhu basta me here lang po bebe huhu again bebe sorry po again huhu me bawi nyan po bebe huhuuuhuh i just want your birthday to be extra super special po sayo po bebe huhu sorry po bebe huhu sana po mapatawad nyo po ako bebe huhu sorry poooo, I love you so so much po bebe koooo! 🤫❤️"
+                </p>
+            </div>
+        </div>
+    </footer>
+
+        </div>
+    </section>
+
+    <!-- JAVASCRIPT FOR INTERACTIONS -->
+    <script>
+        // Balloon Game Logic
+        let poppedCount = 0;
+        const totalBalloons = 4;
+
+        function popBalloon(balloonElement, wishId) {
+            if (balloonElement.classList.contains('pointer-events-none')) return;
+            balloonElement.classList.add('pointer-events-none');
+
+            balloonElement.classList.add('scale-0', 'opacity-0');
+            
+            setTimeout(() => {
+                balloonElement.classList.add('hidden');
+            }, 200);
+
+            const wishParagraph = document.getElementById(wishId);
+            if (wishParagraph) {
+                wishParagraph.classList.remove('hidden');
+                setTimeout(() => {
+                    wishParagraph.classList.remove('opacity-0');
+                    wishParagraph.classList.add('opacity-100');
+                }, 50);
+            }
+
+            poppedCount++;
+            if (poppedCount === totalBalloons) {
+                const actionCall = document.getElementById('all-popped-action');
+                const balloonRow = document.getElementById('balloon-container');
+                
+                setTimeout(() => {
+                    balloonRow.classList.add('hidden'); 
+                    actionCall.classList.remove('hidden');
+                    setTimeout(() => {
+                        actionCall.classList.remove('opacity-0', 'translate-y-2');
+                        actionCall.classList.add('opacity-100', 'translate-y-0');
+                    }, 50);
+                }, 600);
+            }
+        }
+
+        // Compliment Generator Array & Logic
+        const complimentsList = [
+            "You are the prettiest person in the whole world like for real po 😍",
+            "Reminder: Your kili is so superduper bango and completely amazing and cool hehehe 🌸",
+            "Thank you for being my peace and my favorite kausap since day one ❤️",
+            "You have this unexplainable smile that makes my day ✨",
+            "I love your laugh so much it's literally my absolute favorite sound in the world. 🤭",
+            "Even when things get busy just know you are always the best part of my entire life and you are always my favorite person. 📱",
+            "You are stuck with me na hehe, copy that po ba? no returns no exchanges po bebe! 🔒",
+            "Just remember that I am the Luckiest person in the whole world 🥰",
+            "You are my one and only kakampi and always remember I am ur kakampi po lagi bebe hehe mwamwa"
+        ];
+
+        let lastComplimentIndex = -1;
+
+        function generateCompliment() {
+            const displayElement = document.getElementById('compliment-display');
+            
+            // Fade out current text slightly
+            displayElement.classList.add('opacity-0', 'scale-95');
+            
+            setTimeout(() => {
+                let randomIndex;
+                // Loop ensures she doesn't get the same compliment twice in a row
+                do {
+                    randomIndex = Math.floor(Math.random() * complimentsList.length);
+                } while (randomIndex === lastComplimentIndex);
+                
+                lastComplimentIndex = randomIndex;
+                displayElement.textContent = complimentsList[randomIndex];
+                
+                // Fade back in smoothly
+                displayElement.classList.remove('opacity-0', 'scale-95');
+            }, 200);
+        }
+
+        // Function to handle the card flipping logic
+        function flipCard(cardWrapper) {
+            const innerCard = cardWrapper.querySelector('.flip-card-inner');
+            innerCard.classList.toggle('flipped');
+        }
+
+        // Function to smoothly reveal your secret date itinerary
+        function revealItinerary() {
+            const btn = document.getElementById('reveal-btn');
+            const timeline = document.getElementById('itinerary-timeline');
+            
+            btn.classList.add('pointer-events-none', 'opacity-0');
+            
+            setTimeout(() => {
+                btn.classList.add('hidden');
+                timeline.classList.remove('hidden');
+                setTimeout(() => {
+                    timeline.classList.remove('opacity-0');
+                    timeline.classList.add('opacity-100');
+                }, 50);
+            }, 300);
+        }
+
+        // Function to verify the secret passcode
+        function checkPassword() {
+            const input = document.getElementById('secret-code').value;
+            const gate = document.getElementById('password-gate');
+            const error = document.getElementById('error-msg');
+            
+            const correctPassword = "Kili"; 
+
+            if (input.toLowerCase().trim() === correctPassword.toLowerCase()) {
+                error.classList.add('opacity-0');
+                gate.classList.add('opacity-0', 'scale-105', 'pointer-events-none');
+                
+                setTimeout(() => {
+                    gate.classList.add('hidden');
+                }, 1000);
+            } else {
+                error.classList.remove('opacity-0');
+                error.classList.add('opacity-100');
+                
+                const inputField = document.getElementById('secret-code');
+                inputField.classList.add('border-rose-500');
+                setTimeout(() => inputField.classList.remove('border-rose-500'), 500);
+            }
+        }
+
+        // Let her hit "Enter" on the keyboard to submit the code too!
+        document.getElementById('secret-code')?.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+        
+        // Function to calculate and animate days together
+        function calculateDaysTogether() {
+            const anniversaryDate = new Date(2024, 8, 12); 
+            const today = new Date();
+            
+            const differenceInTime = today.getTime() - anniversaryDate.getTime();
+            const totalDays = Math.floor(differenceInTime / (1000 * 3600 * 24));
+            const counterElement = document.getElementById('days-counter');
+            
+            let currentCount = 0;
+            const duration = 1500; 
+            const frameRate = 1000 / 60; 
+            const totalFrames = Math.round(duration / frameRate);
+            const increment = totalDays / totalFrames;
+            
+            const timer = setInterval(() => {
+                currentCount += increment;
+                if (currentCount >= totalDays) {
+                    clearInterval(timer);
+                    counterElement.innerText = totalDays.toLocaleString();
+                } else {
+                    counterElement.innerText = Math.floor(currentCount).toLocaleString();
+                }
+            }, frameRate);
+        }
+
+        // Typewriter Letter Logic
+        const letterMessage = "My dearest BEBE YUMIIII,\n\nHappy, happy birthday to my favorite person in the whole whole world hehe. Writing this out because words sometimes fail to capture how incredibly lucky I am to have you in my life.\n\nYou have this unexplainable energy and the prettiest smile that completely lights up my world, and every single day since September 12, 2024 has been an absolute adventure with you even if I'm not perfect you still choose to stay by my side.\n\nThank you for being my constant, my peace, my yin to my yang, and my prettiest bebe. I hope today brings you as much joy as you give me every single day. I love you endlessly.\n\nAlways,\nYour Gaby ❤️";
+
+        let letterIndex = 0;
+        let hasStartedTyping = false;
+        const typingSpeed = 45; 
+
+        function startTypewriter() {
+            if (hasStartedTyping) return; 
+            hasStartedTyping = true;
+            
+            const textContainer = document.getElementById('typewriter-text');
+            const cursor = document.getElementById('typing-cursor');
+            
+            cursor.classList.remove('hidden'); 
+            
+            function type() {
+                if (letterIndex < letterMessage.length) {
+                    textContainer.textContent += letterMessage.charAt(letterIndex);
+                    letterIndex++;
+                    setTimeout(type, typingSpeed);
+                } else {
+                    cursor.classList.add('hidden'); 
+                }
+            }
+            type();
+        }
+
+        // Rate the Date Core JavaScript Logic
+        let selectedUserRating = 0;
+
+        function setRating(ratingValue) {
+            selectedUserRating = ratingValue;
+            const starButtons = document.querySelectorAll('.star-btn');
+            
+            starButtons.forEach((star, index) => {
+                if (index < ratingValue) {
+                    // Turn active filled stars gold
+                    star.classList.remove('text-stone-200');
+                    star.classList.add('text-amber-400');
+                } else {
+                    // Reset empty stars back to light gray
+                    star.classList.remove('text-amber-400');
+                    star.classList.add('text-stone-200');
+                }
+            });
+        }
+
+        function submitDateRating() {
+            // Default to 5 stars if she clicks submit without choosing to be sweet
+            if (selectedUserRating === 0) {
+                setRating(5);
+            }
+            
+            const formCard = document.getElementById('rating-form-card');
+            const successMsg = document.getElementById('rating-success-message');
+            
+            formCard.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+            
+            setTimeout(() => {
+                formCard.classList.add('hidden');
+                successMsg.classList.remove('hidden');
+                setTimeout(() => {
+                    successMsg.classList.remove('opacity-0');
+                    successMsg.classList.add('opacity-100');
+                }, 50);
+            }, 400);
+        }
+
+        // Trigger the effect automatically when she scrolls down to the letter section
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    startTypewriter();
+                }
+            });
+        }, { threshold: 0.3 }); 
+
+        // Run setup functions on load
+        document.addEventListener("DOMContentLoaded", () => {
+            calculateDaysTogether();
+            
+            const targetSection = document.getElementById('birthday-letter');
+            if (targetSection) observer.observe(targetSection);
+        });
+        // Function to reveal the hidden P.S. message at the absolute bottom
+        function revealSecretBottomMessage() {
+            const triggerBtn = document.getElementById('secret-trigger-btn');
+            const secretBox = document.getElementById('bottom-secret-box');
+            
+            // Disable trigger and fade it out gently
+            triggerBtn.classList.remove('animate-pulse');
+            triggerBtn.classList.add('pointer-events-none', 'opacity-0');
+            
+            setTimeout(() => {
+                triggerBtn.classList.add('hidden');
+                secretBox.classList.remove('hidden');
+                
+                // Smoothly dissolve and lift the text container into view
+                setTimeout(() => {
+                    secretBox.classList.remove('opacity-0', 'translate-y-2');
+                    secretBox.classList.add('opacity-100', 'translate-y-0');
+                }, 50);
+            }, 300);
+        }
+    </script>
+
+</body>
+</html>
